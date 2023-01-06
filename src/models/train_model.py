@@ -1,9 +1,9 @@
 import argparse
 import sys
-
+import os
 import torch
 
-from data import CorruptMnist
+from data  import CorruptMnist
 from model import MyAwesomeModel
 
 import matplotlib.pyplot as plt
@@ -40,7 +40,6 @@ class TrainOREvaluate(object):
         
         # TODO: Implement training loop here
         model = MyAwesomeModel()
-        model = model.to(self.device)
         train_set = CorruptMnist(train=True)
         dataloader = torch.utils.data.DataLoader(train_set, batch_size=128)
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
@@ -58,12 +57,12 @@ class TrainOREvaluate(object):
                 optimizer.step()
                 loss_tracker.append(loss.item())
             print(f"Epoch {epoch+1}/{n_epoch}. Loss: {loss}")        
-        torch.save(model.state_dict(), 'trained_model.pt')
+        torch.save(model.state_dict(), os.path.join('/Users/mac/Documents/GitHub/final_exercise/models', "trained_model.pt"))        
             
         plt.plot(loss_tracker, '-')
         plt.xlabel('Training step')
         plt.ylabel('Training loss')
-        plt.savefig("training_curve.png")
+        plt.savefig(os.path.join('/Users/mac/Documents/GitHub/final_exercise/reports/figures', "training_curve.png"))
         
         return model
             
