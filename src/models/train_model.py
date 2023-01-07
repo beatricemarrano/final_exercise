@@ -46,7 +46,7 @@ class TrainOREvaluate(object):
         dataloader = torch.utils.data.DataLoader(train_set, batch_size=128)
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
         criterion = torch.nn.CrossEntropyLoss()
-        print('hey')
+        
         n_epoch = 5
         for epoch in range(n_epoch):
             loss_tracker = []
@@ -58,9 +58,10 @@ class TrainOREvaluate(object):
                 loss.backward()
                 optimizer.step()
                 loss_tracker.append(loss.item())
-            print(loss)
-            #print(f"Epoch {epoch+1}/{n_epoch}. Loss: {loss} ")        
-        torch.save(model.state_dict(), os.path.join('/Users/mac/Documents/GitHub/final_exercise/models', "trained_model.pt"))        
+            #print(loss)
+            #print(f"Epoch {epoch+1}/{n_epoch}. Loss: {loss} ")
+        torch.save(model, os.path.join('/Users/mac/Documents/GitHub/final_exercise/models', "trained_model.pt"))    
+        torch.save(model.state_dict(), os.path.join('/Users/mac/Documents/GitHub/final_exercise/models', "checkpoint.pth"))        
             
         plt.plot(loss_tracker, '-')
         plt.xlabel('Training step')
