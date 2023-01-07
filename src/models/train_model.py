@@ -3,8 +3,10 @@ import sys
 import os
 import torch
 
-from data  import CorruptMnist
-from model import MyAwesomeModel
+sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src")
+from data.data import CorruptMnist
+#sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src/models")
+from models.model import MyAwesomeModel
 
 import matplotlib.pyplot as plt
 
@@ -15,7 +17,7 @@ class TrainOREvaluate(object):
     def __init__(self):
         parser = argparse.ArgumentParser(
             description="Script for either training or evaluating",
-            usage="python main.py <command>"
+            usage="python train_model.py <command>"
         )
         parser.add_argument("command", help="Subcommand to run")
         args = parser.parse_args(sys.argv[1:2])
@@ -44,7 +46,7 @@ class TrainOREvaluate(object):
         dataloader = torch.utils.data.DataLoader(train_set, batch_size=128)
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
         criterion = torch.nn.CrossEntropyLoss()
-        
+        print('hey')
         n_epoch = 5
         for epoch in range(n_epoch):
             loss_tracker = []
@@ -56,7 +58,8 @@ class TrainOREvaluate(object):
                 loss.backward()
                 optimizer.step()
                 loss_tracker.append(loss.item())
-            print(f"Epoch {epoch+1}/{n_epoch}. Loss: {loss}")        
+            print(loss)
+            #print(f"Epoch {epoch+1}/{n_epoch}. Loss: {loss} ")        
         torch.save(model.state_dict(), os.path.join('/Users/mac/Documents/GitHub/final_exercise/models', "trained_model.pt"))        
             
         plt.plot(loss_tracker, '-')
@@ -92,7 +95,7 @@ class TrainOREvaluate(object):
             correct += (preds == y.to(self.device)).sum().item()
             total += y.numel()
             
-        print(f"Test set accuracy {correct/total}")
+        print("Test set accuracy", {correct/total})
 
 
 if __name__ == '__main__':
