@@ -7,7 +7,8 @@ FROM python:3.7-slim
 RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
-    
+
+RUN pip install torch    
 
 COPY requirements.txt requirements.txt
 COPY setup.py setup.py
