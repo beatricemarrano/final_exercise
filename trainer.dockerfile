@@ -9,7 +9,7 @@ RUN apt update && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt requirements.txt
-#COPY setup.py setup.py
+COPY setup.py setup.py
 COPY src/ src/
 COPY data/ data/
 
