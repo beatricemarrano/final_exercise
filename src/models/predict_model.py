@@ -17,14 +17,21 @@ sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src")
 from data.data import CorruptMnist
 from models.model import MyAwesomeModel
 
-#@hydra.main(config_path="../../config", config_name="default_config.yaml")
-def main():
+@hydra.main(config_path="../../config", config_name="default_config.yaml")
+def main(config: DictConfig):
     logger = logging.getLogger(__name__)
     logger.info("Executing predict model script.")
 
     # %% Validate output folder
     #PRIMA PARTE: trova il folder dove c è il tuo modello
-    output_dir = "/Users/mac/Documents/GitHub/final_exercise/models"
+    output_dir = os.path.join(
+        hydra.utils.get_original_cwd(), config.predict.model_output_dir
+    )
+    if not os.path.isdir(output_dir):
+        raise Exception(
+            'The "model_output_dir" path ({}) could not be found'.format(output_dir)
+        )
+    #output_dir = "/Users/mac/Documents/GitHub/final_exercise/models"
 
     # %% Load local config in output directory
     # INDICA DOVE MANDARE LE PREDIZIONI
