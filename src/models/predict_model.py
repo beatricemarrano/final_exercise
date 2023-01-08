@@ -17,7 +17,7 @@ sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src")
 from data.data import CorruptMnist
 from models.model import MyAwesomeModel
 
-@hydra.main(config_path="../../config", config_name="default_config.yaml")
+@hydra.main(config_path="../../config", config_name="default_config.yaml", version_base = '1.1')
 def main(config: DictConfig):
     logger = logging.getLogger(__name__)
     logger.info("Executing predict model script.")
