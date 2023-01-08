@@ -2,6 +2,7 @@ import argparse
 import sys
 import os
 import torch
+import wandb
 
 sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src")
 from data.data import CorruptMnist
@@ -28,26 +29,32 @@ class TrainOREvaluate(object):
             exit(1)
         
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-            
+           
         # use dispatch pattern to invoke method with same name
         getattr(self, args.command)()
     
     def train(self):
         print("Training day and night")
+        
+        #WANDB
+        wandb.init(project="final_exercise", entity="beatrice-marrano")
+        wandb.config= {'learning_rate': 1e-3, 'n_epoch': 5, 'batch_size':128}
+        
         parser = argparse.ArgumentParser(description='Training arguments')
-        parser.add_argument('--lr', default=1e-3)
+        parser.add_argument('--lr', default=wandb.config["learning_rate"])
         # add any additional argument that you want
         args = parser.parse_args(sys.argv[2:])
         print(args)
+
         
         # TODO: Implement training loop here
         model = MyAwesomeModel()
         train_set = CorruptMnist(train=True)
-        dataloader = torch.utils.data.DataLoader(train_set, batch_size=128)
+        dataloader = torch.utils.data.DataLoader(train_set, batch_size=wandb.config["batch_size"])
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
         criterion = torch.nn.CrossEntropyLoss()
         
-        n_epoch = 5
+        n_epoch = wandb.config["n_epoch"]
         for epoch in range(n_epoch):
             loss_tracker = []
             for batch in dataloader:
@@ -58,6 +65,7 @@ class TrainOREvaluate(object):
                 loss.backward()
                 optimizer.step()
                 loss_tracker.append(loss.item())
+                wandb.log({"Loss": loss})
             #print(loss)
             #print(f"Epoch {epoch+1}/{n_epoch}. Loss: {loss} ")
         torch.save(model, os.path.join('/Users/mac/Documents/GitHub/final_exercise/models', "trained_model.pt"))    
@@ -78,13 +86,17 @@ class TrainOREvaluate(object):
         args = parser.parse_args(sys.argv[2:])
         print(args)
         
+        #WANDB
+        wandb.init(project="final_exercise", entity="beatrice-marrano")
+        wandb.config= {'learning_rate': 1e-3, 'n_epoch': 5, 'batch_size':128}
+        
         # TODO: Implement evaluation logic here
         model = MyAwesomeModel()
         model.load_state_dict(torch.load(args.load_model_from))
         model = model.to(self.device)
 
         test_set = CorruptMnist(train=False)
-        dataloader = torch.utils.data.DataLoader(test_set, batch_size=128)
+        dataloader = torch.utils.data.DataLoader(test_set, batch_size=wandb.config["batch_size"])
         
         correct, total = 0, 0
         for batch in dataloader:
@@ -96,7 +108,8 @@ class TrainOREvaluate(object):
             correct += (preds == y.to(self.device)).sum().item()
             total += y.numel()
             
-        print("Test set accuracy", {correct/total})
+            wandb.log({"Test set accuracy": correct/total})
+        #print("Test set accuracy", {correct/total})
 
 
 if __name__ == '__main__':
