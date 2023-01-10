@@ -1,8 +1,12 @@
 import torch
 #import wget
-from torch.utils.data import Dataset
 import numpy as np
 import os
+
+from typing import Optional
+import pytorch_lightning as pl
+from torch.utils.data import DataLoader
+from torch.utils.data.dataset import Dataset
 
 class CorruptMnist(Dataset):
     def __init__(self, train):
@@ -32,3 +36,36 @@ if __name__ == "__main__":
     print(dataset_train.targets.shape)
     print(dataset_test.data.shape)
     print(dataset_test.targets.shape)
+    
+    
+#Implementing Pytorch Lightning
+class CorruptMnistDataModule(pl.LightningDataModule):
+    def __init__(self, data_path: str, batch_size: int = 32):
+        super().__init__()
+        self.data_path = os.path.join(data_path, "processed")
+        self.batch_size = batch_size
+        self.cpu_cnt = os.cpu_count() or 2
+
+    def prepare_data(self) -> None:
+        if not os.path.isdir(self.data_path):
+            raise Exception("data is not prepared")
+
+    def setup(self, stage: Optional[str] = None) -> None:
+        self.trainset = CorruptMnist(self.data_path, "train")
+        self.testset = CorruptMnist(self.data_path, "test")
+        self.valset = CorruptMnist(self.data_path, "eval")
+
+    def train_dataloader(self) -> DataLoader:
+        return DataLoader(
+            self.trainset, batch_size=self.batch_size, num_workers=self.cpu_cnt
+        )
+
+    def test_dataloader(self) -> DataLoader:
+        return DataLoader(
+            self.testset, batch_size=self.batch_size, num_workers=self.cpu_cnt
+        )
+
+    def val_dataloader(self) -> DataLoader:
+        return DataLoader(
+            self.valset, batch_size=self.batch_size, num_workers=self.cpu_cnt
+        )
