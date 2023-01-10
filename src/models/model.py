@@ -1,13 +1,5 @@
-#from torch import nn
-
-
-#class MyAwesomeModel(nn.Module):
-    #def __init__(self):
-        #super().__init__()
-
-        
-        
-from torch import nn
+from torch import nn, optim
+from pytorch_lightning import LightningModule
 
 class MyAwesomeModel(nn.Module):
     def __init__(self):
@@ -29,7 +21,16 @@ class MyAwesomeModel(nn.Module):
             nn.Dropout(),
             nn.Linear(128, 10)
         )
+        self.criterium= nn.CrossEntropyLoss()
         
     def forward(self, x):
         return self.classifier(self.backbone(x))
     
+    def training_step(self, batch, bathc_idx):
+        data, target= batch
+        preds= self(data)
+        loss= self.criterium(preds, target)
+        return loss
+    
+    def configure_optimizers(self):
+        return optim.Adam(self.parameters(), lr= 1e-2)
