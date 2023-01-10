@@ -5,8 +5,8 @@ import torch
 import wandb
 #import logging
 #from pathlib import Path
-import pytorch_lightning as pl
-from pytorch_lightning import Trainer
+#import pytorch_lightning as pl
+#from pytorch_lightning import Trainer
 
 sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src")
 from data.data import CorruptMnist
