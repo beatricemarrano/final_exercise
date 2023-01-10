@@ -1,9 +1,13 @@
 from torch import nn, optim
 from pytorch_lightning import LightningModule
+from omegaconf import DictConfig
 
-class MyAwesomeModel(nn.Module):
-    def __init__(self):
+class MyAwesomeModel(LightningModule):
+    def __init__(self, config: DictConfig):
         super().__init__()
+        
+        self.config = config
+        
         self.backbone = nn.Sequential(
             nn.Conv2d(1, 64, 3), # [N, 64, 26]
             nn.LeakyReLU(),
@@ -30,7 +34,12 @@ class MyAwesomeModel(nn.Module):
         data, target= batch
         preds= self(data)
         loss= self.criterium(preds, target)
+        acc = (target == preds.argmax(dim=-1)).float().mean()
+        self.log('train_loss', loss)
+        self.log('train_acc', acc)
         return loss
-    
+
     def configure_optimizers(self):
         return optim.Adam(self.parameters(), lr= 1e-2)
+
+    
