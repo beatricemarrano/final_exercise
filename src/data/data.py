@@ -27,7 +27,7 @@ class CorruptMnist(Dataset):
             file_data= os.path.join(path, "data_train.pkl")
             file_targets = os.path.join(path, "targets_train.pkl")
         elif type == "test":
-            file_data= os.path.join(path, "data_train.pkl")
+            file_data= os.path.join(path, "data_test.pkl")
             file_targets = os.path.join(path, "targets_test.pkl")
         else:
             raise Exception(f"Unknown Dataset type: {type}")
