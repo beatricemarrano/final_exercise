@@ -1,6 +1,9 @@
 final_exercise
 ==============================
 
+Data: Corrupted MNIST 
+
+
 this is an example project to showoff how cookiecutter works.
 
 Project Organization
