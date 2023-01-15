@@ -22,7 +22,7 @@ class CorruptMnist(Dataset):
         #self.targets = targets
     
     def __init__(self, path: str, type: str = "train") -> None:
-        path= '/Users/mac/Documents/GitHub/final_exercise/data/processed'
+        #path= '/Users/mac/Documents/GitHub/final_exercise/data/processed'
         if type == "train":
             file_data= os.path.join(path, "data_train.pkl")
             file_targets = os.path.join(path, "targets_train.pkl")
@@ -42,13 +42,13 @@ class CorruptMnist(Dataset):
         return self.data[idx].float(), self.targets[idx]
 
 
-if __name__ == "__main__":
-    dataset_train = CorruptMnist(train=True)
-    dataset_test = CorruptMnist(train=False)
-    print(dataset_train.data.shape)
-    print(dataset_train.targets.shape)
-    print(dataset_test.data.shape)
-    print(dataset_test.targets.shape)
+#if __name__ == "__main__":
+    #dataset_train = CorruptMnist(train=True)
+    #dataset_test = CorruptMnist(train=False)
+    #print(dataset_train.data.shape)
+    #print(dataset_train.targets.shape)
+    #print(dataset_test.data.shape)
+    #print(dataset_test.targets.shape)
     
     
 #Implementing Pytorch Lightning
