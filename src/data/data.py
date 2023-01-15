@@ -24,7 +24,7 @@ class CorruptMnist(Dataset):
     def __init__(self, path: str, type: str = "train") -> None:
         #path= '/Users/mac/Documents/GitHub/final_exercise/data/processed'
         if type == "train":
-            file_data= os.path.join(path, "data_train.pkl")
+            file_data= os.path.join(path, "data_train.pkl.dvc")
             file_targets = os.path.join(path, "targets_train.pkl")
         elif type == "test":
             file_data= os.path.join(path, "data_test.pkl")
