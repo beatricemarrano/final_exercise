@@ -31,9 +31,9 @@ class CorruptMnist(Dataset):
             file_targets = os.path.join(path, "targets_test.pkl")
         else:
             raise Exception(f"Unknown Dataset type: {type}")
-    
-        self.data = torch.load(file_data)
+
         self.targets = torch.load(file_targets)
+        self.data = torch.load(file_data)
     
     def __len__(self):
         return self.targets.numel()
