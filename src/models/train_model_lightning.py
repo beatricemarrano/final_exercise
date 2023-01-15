@@ -7,7 +7,7 @@ import pytorch_lightning as pl
 import torch
 import wandb
 import sys
-from dotenv import find_dotenv, load_dotenv
+#from dotenv import find_dotenv, load_dotenv
 from omegaconf import DictConfig
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import Callback #importing Callbacks class
@@ -43,7 +43,7 @@ def main(config: DictConfig):
     data_module.setup()
     model = MyAwesomeModel(config)
 
-    checkpoint_callback = ModelCheckpoint(dirpath="./models", monitor="val_loss", mode="min")
+    checkpoint_callback = ModelCheckpoint(dirpath="./models", monitor="train_loss", mode="min")
     
     trainer = Trainer(
         default_root_dir=os.getcwd(),
@@ -74,6 +74,6 @@ if __name__ == "__main__":
 
     # find .env automagically by walking up directories until it's found, then
     # load up the .env entries as environment variables
-    load_dotenv(find_dotenv())
+    #load_dotenv(find_dotenv())
 
     main()
