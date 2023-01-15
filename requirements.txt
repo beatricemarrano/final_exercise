@@ -40,7 +40,6 @@ dvc
 dvc[gdrive]
 dvc[gs]
 torch_tb_profiler
-wandb
 coverage
 pre-commit
 google-api-python-client
