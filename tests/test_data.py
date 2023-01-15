@@ -6,7 +6,7 @@ import sys
 
 sys.path.append("/Users/mac/Documents/GitHub/final_exercise/")
 from src.data.data import CorruptMnistDataModule
-#sys.path.append("/Users/mac/Documents/GitHub/final_exercise/")
+#sys.path.append("/Users/mac/Documents/GitHub/final_exercise/tests")
 #from tests import _PATH_DATA, _PROJECT_ROOT
 
 _TEST_ROOT = os.path.dirname(__file__)  # root of test folder
