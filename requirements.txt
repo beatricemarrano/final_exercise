@@ -39,7 +39,6 @@ mypy
 dvc
 dvc[gdrive]
 dvc[gs]
-hydra-core
 torch_tb_profiler
 wandb
 coverage
