@@ -8,7 +8,7 @@ import torch
 import wandb
 import sys
 #from dotenv import find_dotenv, load_dotenv
-#from google.cloud import secretmanager
+from google.cloud import secretmanager
 from omegaconf import DictConfig
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import Callback #importing Callbacks class
@@ -26,14 +26,14 @@ from pytorch_lightning.callbacks import ModelCheckpoint
 def main(config: DictConfig):
     logger = logging.getLogger(__name__)
     logger.info("Start Training...")
-    #client = secretmanager.SecretManagerServiceClient()
-    #PROJECT_ID = "dtu-mlops-project"
+    client = secretmanager.SecretManagerServiceClient()
+    PROJECT_ID = "dtumlops-374617"
 
-    #secret_id = "WANDB"
-    #resource_name = f"projects/{PROJECT_ID}/secrets/{secret_id}/versions/latest"
-    #response = client.access_secret_version(name=resource_name)
-    #api_key = response.payload.data.decode("UTF-8")
-    #os.environ["WANDB_API_KEY"] = api_key
+    secret_id = "WANDB"
+    resource_name = f"projects/{PROJECT_ID}/secrets/{secret_id}/versions/1"
+    response = client.access_secret_version(name=resource_name)
+    api_key = response.payload.data.decode("UTF-8")
+    os.environ["WANDB_API_KEY"] = api_key
     #WANDB
     wandb.init(project="final_exercise", entity="beatrice-marrano", config= config)
     
