@@ -1,3 +1,4 @@
+import torch
 from torch import nn, optim
 from pytorch_lightning import LightningModule
 from omegaconf import DictConfig
@@ -47,3 +48,9 @@ class MyAwesomeModel(LightningModule):
         return optim.Adam(self.parameters(), lr= 1e-2)
 
     
+    def save_jit(self, file: str = "deployable_model.pt") -> None:
+        token_len = 64#self.config["build_features"]["max_sequence_length"]##
+        tokens_tensor = torch.ones(1, token_len).long()
+        mask_tensor = torch.ones(1, token_len).float()
+        script_model = torch.jit.trace(self.model, [tokens_tensor, mask_tensor])
+        script_model.save(file)
