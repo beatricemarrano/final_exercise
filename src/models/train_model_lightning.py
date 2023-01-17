@@ -64,7 +64,7 @@ def main(config: DictConfig):
 
     torch.save(model, os.path.join('/Users/mac/Documents/GitHub/final_exercise/models', "trained_model.pt"))    
     torch.save(model.state_dict(), os.path.join('/Users/mac/Documents/GitHub/final_exercise/models', "checkpoint.pth"))           
-
+    model.save_jit()
 
 if __name__ == "__main__":
     log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
