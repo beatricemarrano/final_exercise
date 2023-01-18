@@ -7,7 +7,7 @@ from google.cloud import storage
 #from tweet_cleaner import clean_tweet
 
 BUCKET_NAME = "final_exercise"
-MODEL_FILE = "deployable_model.pt"
+MODEL_FILE = "trained_model.pt"
 
 client = storage.Client()
 bucket = client.get_bucket(BUCKET_NAME)
