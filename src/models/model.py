@@ -1,7 +1,8 @@
 import torch
-from torch import nn, optim
-from pytorch_lightning import LightningModule
 from omegaconf import DictConfig
+from pytorch_lightning import LightningModule
+from torch import nn, optim
+
 
 class MyAwesomeModel(LightningModule):
     def __init__(self, config: DictConfig):
