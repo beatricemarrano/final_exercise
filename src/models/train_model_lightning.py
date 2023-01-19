@@ -1,26 +1,26 @@
 import logging
 import os
+import sys
 from pathlib import Path
 
 import hydra
 import pytorch_lightning as pl
 import torch
 import wandb
-import sys
 #from dotenv import find_dotenv, load_dotenv
 from google.cloud import secretmanager
 from omegaconf import DictConfig
 from pytorch_lightning import Trainer
-from pytorch_lightning.callbacks import Callback #importing Callbacks class
+from pytorch_lightning.callbacks import Callback  # importing Callbacks class
 
 sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src")
+import matplotlib.pyplot as plt
+from pytorch_lightning.callbacks import ModelCheckpoint
+
 from data.data import CorruptMnistDataModule
 #sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src/models")
 from models.model import MyAwesomeModel
 
-import matplotlib.pyplot as plt
-
-from pytorch_lightning.callbacks import ModelCheckpoint
 
 @hydra.main(config_path="../../config", config_name="default_config.yaml")
 def main(config: DictConfig):
