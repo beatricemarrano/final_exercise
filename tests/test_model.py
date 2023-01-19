@@ -1,12 +1,13 @@
 import os
+import sys
 
 import pytest
 import torch
 from hydra import compose, initialize
 
-import sys
 sys.path.append("/Users/mac/Documents/GitHub/final_exercise/")
 from src.models.model import MyAwesomeModel
+
 #from tests import _PROJECT_ROOT
 
 _TEST_ROOT = os.path.dirname(__file__)  # root of test folder
