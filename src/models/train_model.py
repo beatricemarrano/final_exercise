@@ -1,19 +1,22 @@
 import argparse
-import sys
 import os
+import sys
+
 import torch
 import wandb
+
 #import logging
 #from pathlib import Path
 #import pytorch_lightning as pl
 #from pytorch_lightning import Trainer
 
 sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src")
+import matplotlib.pyplot as plt
+
 from data.data import CorruptMnist
 #sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src/models")
 from models.model import MyAwesomeModel
 
-import matplotlib.pyplot as plt
 
 class TrainOREvaluate(object):
     """ Helper class that will help launch class methods as commands
