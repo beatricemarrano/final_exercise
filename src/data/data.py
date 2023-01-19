@@ -1,12 +1,13 @@
-import torch
+import os
+from typing import Optional
+
 #import wget
 import numpy as np
-import os
-
-from typing import Optional
 import pytorch_lightning as pl
+import torch
 from torch.utils.data import DataLoader
 from torch.utils.data.dataset import Dataset
+
 
 class CorruptMnist(Dataset):
     #def __init__(self, train):
