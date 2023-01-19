@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 #import click
 import logging
-from pathlib import Path
 #from dotenv import find_dotenv, load_dotenv
 import os
+from pathlib import Path
+
 import numpy as np
 #@click.command()
 #@click.argument('input_filepath', type=click.Path(exists=True))
 #@click.argument('output_filepath', type=click.Path())
-import torch 
+import torch
+
 
 def main(input_filepath, output_filepath):
     """ Runs data processing scripts to turn raw data from (../raw) into
