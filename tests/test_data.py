@@ -1,11 +1,12 @@
 import os
+import sys
 
 import pytest
 from hydra import compose, initialize
-import sys
 
 sys.path.append("/Users/mac/Documents/GitHub/final_exercise/")
 from src.data.data import CorruptMnistDataModule
+
 #sys.path.append("/Users/mac/Documents/GitHub/final_exercise/tests")
 #from tests import _PATH_DATA, _PROJECT_ROOT
 
