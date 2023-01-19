@@ -1,6 +1,7 @@
 import glob
 import logging
 import os
+import sys
 from pathlib import Path
 from time import time
 
@@ -11,11 +12,11 @@ import torch.quantization
 from dotenv import find_dotenv, load_dotenv
 from omegaconf import DictConfig
 from torch import nn
-import sys
 
 sys.path.append("/Users/mac/Documents/GitHub/final_exercise/src")
 from data.data import CorruptMnist
 from models.model import MyAwesomeModel
+
 
 @hydra.main(config_path="../../config", config_name="default_config.yaml", version_base = '1.1')
 def main(config: DictConfig):
