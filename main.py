@@ -1,13 +1,13 @@
 import argparse
 import sys
 
-import torch
 import click
+import matplotlib.pyplot as plt
+import torch
 
 from data import mnist
 from model import MyAwesomeModel
 
-import matplotlib.pyplot as plt
 
 @click.group()
 def cli():
